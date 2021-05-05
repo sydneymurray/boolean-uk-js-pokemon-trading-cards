@@ -5,6 +5,11 @@
 
 // FUNCTIONS
 
+// CAPITALISE THE FIRST LETTER OF A STRING
+function capitaliseFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 // CREAT A SINGLE CARD
 function createCard(pokemon){
     
@@ -17,7 +22,7 @@ function createCard(pokemon){
     // CREATE H2
     let h2 = document.createElement('h2')
     h2.setAttribute('class','card--title')
-    h2.innerText = pokemon.name
+    h2.innerText = capitaliseFirstLetter(pokemon.name)
     card.append(h2)
     
     // CREATE IMAGE
@@ -32,13 +37,21 @@ function createCard(pokemon){
     statsContainer.setAttribute('class','card--text')
     card.append(statsContainer)
 
-    // CREATE 5 PARAGRAPHS FOR CARD STATS TEXT
+    // CREATE 6 PARAGRAPHS THAT CONTAIN TEXT FOR THE CARD STATS
     for (let i = 0; i < 6; i++){
         let stat = document.createElement('p')
         stat.innerText = pokemon.stats[i].stat.name.toUpperCase() + ": " + pokemon.stats[i].base_stat
         statsContainer.append(stat)
     }
-}
+
+    // CREATE A PARAGRAPH DETAILING CHARACTOR APPEARANCES    
+    let appearances = document.createElement('p')
+    let appearancesText = capitaliseFirstLetter(pokemon.name) + " has appeared in the following games:-\n\n"
+    for (let i = 0; i < pokemon.game_indices.length; i++)
+        appearancesText += capitaliseFirstLetter(pokemon.game_indices[i].version.name) + ", "
+    appearances.innerText = appearancesText
+    statsContainer.append(appearances)
+   }
 
 
 // MAIN CODE
